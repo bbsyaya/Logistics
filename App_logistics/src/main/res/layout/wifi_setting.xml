@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/ip_tv"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/login_view"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/login_editbox"
+        android:hint="请设置wifi名称"
+        android:maxLength="15"
+        android:padding="13dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+</LinearLayout>

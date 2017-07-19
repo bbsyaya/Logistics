@@ -1,0 +1,128 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:id="@+id/update_top_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/pic_header_02"
+        android:gravity="center_horizontal|center_vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:onClick="btn_back"
+            android:paddingBottom="14dp"
+            android:paddingTop="14dp"
+            android:src="@drawable/title_btn_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="12"
+            android:gravity="center"
+            android:paddingLeft="-50dp"
+            android:text="打印凭条"
+            android:textColor="#ffffff"
+            android:textSize="20sp"/>
+    </LinearLayout>
+    <!-- bluetooth端口信息 -->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="5">
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- bt的 -->
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:padding="2dp">
+
+                <TextView
+                    android:id="@+id/Text_btname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/Text_btname"
+                    android:textSize="20sp"/>
+
+                <Spinner
+                    android:id="@+id/spinner_btname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/Text_btname"
+                    android:textColor="#000"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:padding="2dp">
+
+                <TextView
+                    android:id="@+id/Text_btmax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/Text_btmax"
+                    android:textColor="#000"
+                    android:textSize="20sp"/>
+
+                <EditText
+                    android:id="@+id/edit_btmax"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/Text_btmax"
+                    android:ems="10"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:padding="2dp">
+
+                <Button
+                    android:id="@+id/button_btcon"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/button_btcon"
+                    android:textSize="20sp"/>
+
+                <Button
+                    android:id="@+id/print"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="100dp"
+                    android:enabled="false"
+                    android:onClick="print"
+                    android:text="打印"
+                    android:textSize="20sp"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

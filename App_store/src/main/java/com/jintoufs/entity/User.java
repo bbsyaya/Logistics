@@ -1,0 +1,301 @@
+package com.jintoufs.entity;
+
+
+public class User {
+	/**
+     */
+	private Integer id;
+
+	/**
+	 * 用户名
+	 */
+	private String userName;
+
+	/**
+	 * 真实姓名
+	 */
+	private String realName;
+
+	/**
+	 * 密码
+	 */
+	private String password;
+
+	/**
+	 * 角色ID
+	 */
+	private Integer roleId;
+
+	/**
+	 * 手机号码
+	 */
+	private String mobilePhone;
+
+	/**
+	 * 邮件
+	 */
+	private String email;
+
+	/**
+	 * 性别（M，F）
+	 */
+	private String sex;
+
+	/**
+	 * 状态（0：禁用，1：启用）
+	 */
+	private Integer status;
+	/**
+	 * 类型
+	 */
+	private Integer type;
+
+	/**
+	 * 机构ID
+	 */
+	private String orgCode;
+
+	/**
+	 * 入职时间
+	 */
+	private String joinTime;
+
+	/**
+	 * 合同到期时间
+	 */
+	private String endTime;
+
+	/**
+	 * 备注
+	 */
+	private String remark;
+	/**
+	 * 加密密码的盐
+	 */
+	private String salt;
+
+	private String empNo;
+
+	private String userPhoto;
+
+	private String idCard;
+
+	private Integer age;
+
+	private String birthday;
+
+	private String education;
+
+	private String address;
+
+	private String postalcode;
+
+	private String birthAddress;
+
+	private String keyStr;
+	
+	 public String getKeyStr() {
+	        return keyStr;
+	    }
+
+	    public void setKeyStr(String keyStr) {
+	        this.keyStr = keyStr;
+	    }
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName == null ? null : userName.trim();
+	}
+
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName == null ? null : realName.trim();
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password == null ? null : password.trim();
+	}
+
+	public Integer getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
+	}
+
+	public String getMobilePhone() {
+		return mobilePhone;
+	}
+
+	public void setMobilePhone(String mobilePhone) {
+		this.mobilePhone = mobilePhone == null ? null : mobilePhone.trim();
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email == null ? null : email.trim();
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex == null ? null : sex.trim();
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public String getJoinTime() {
+		return joinTime;
+	}
+
+	public void setJoinTime(String joinTime) {
+		this.joinTime = joinTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark == null ? null : remark.trim();
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public String getOrgCode() {
+		return orgCode;
+	}
+
+	public void setOrgCode(String orgCode) {
+		this.orgCode = orgCode;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	public String getCredentialsSalt() {
+		return userName + salt;
+	}
+
+	public String getEmpNo() {
+		return empNo;
+	}
+
+	public void setEmpNo(String empNo) {
+		this.empNo = empNo;
+	}
+
+	public String getUserPhoto() {
+		return userPhoto;
+	}
+
+	public void setUserPhoto(String userPhoto) {
+		this.userPhoto = userPhoto;
+	}
+
+	public String getIdCard() {
+		return idCard;
+	}
+
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getEducation() {
+		return education;
+	}
+
+	public void setEducation(String education) {
+		this.education = education;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPostalcode() {
+		return postalcode;
+	}
+
+	public void setPostalcode(String postalcode) {
+		this.postalcode = postalcode;
+	}
+
+	public String getBirthAddress() {
+		return birthAddress;
+	}
+
+	public void setBirthAddress(String birthAddress) {
+		this.birthAddress = birthAddress;
+	}
+
+}

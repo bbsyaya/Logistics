@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#f7f7f7"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/pic_header_02"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/module1"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <fragment
+        android:id="@+id/fragment_1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title" >
+    </fragment>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_height="35dp" >
+        
+    <Button
+        android:id="@+id/btn_escort_task"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="35dp"
+        android:background="@drawable/btn_style_red"
+        android:gravity="center"
+        android:onClick="comfrimEscortTask"
+        android:text="@string/tab_1_btn_escort"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn_confirm_in_car_task"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="35dp"
+        android:background="@drawable/btn_style_red"
+        android:gravity="center"
+        android:onClick="confirmInCarTask"
+        android:text="@string/tab_1_btn_in_car"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn_confirm_out_car_task"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="35dp"
+        android:background="@drawable/btn_style_red"
+        android:gravity="center"
+        android:onClick="confirmOutCarTask"
+        android:text="@string/tab_1_btn_out_car"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+        
+    </LinearLayout>
+
+</RelativeLayout>

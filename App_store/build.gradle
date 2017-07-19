@@ -1,0 +1,69 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "25.0.2"
+
+    signingConfigs {
+        keystore {
+            keyAlias 'hongtai-logistics'
+            keyPassword 'jintoufs'
+            storeFile file('../keystore/keystore_store')
+            storePassword 'jintoufs'
+            v2SigningEnabled false
+        }
+    }
+    defaultConfig {
+        applicationId "com.jintoufs"
+        minSdkVersion 15
+        targetSdkVersion 19
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources false
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.keystore
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        // 输出apk名称为Hongtai_v1.0_2015-01-15_.apk
+                        def fileName = "Hongtai_v${defaultConfig.versionName}_${releaseTime()}_store.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
+        }
+        debug {
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false //android studio 2.2 设置为false
+            debuggable true
+            signingConfig signingConfigs.keystore
+        }
+    }
+    lintOptions{
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+def releaseTime() {
+    return new Date().format('yyyyMMdd')
+}
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+    compile project(':CommonLib')
+}

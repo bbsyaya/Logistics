@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget36"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/txtCash"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/login_editbox"
+        android:hint="@string/handInTips"
+        android:inputType="textPassword"
+        android:padding="13dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+    <EditText
+        android:id="@+id/txtReCash"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/login_editbox"
+        android:hint="@string/reHandInTips"
+        android:inputType="textPassword"
+        android:padding="13dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+    
+
+</TableLayout>

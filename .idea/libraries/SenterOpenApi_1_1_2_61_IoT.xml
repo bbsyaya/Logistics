@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SenterOpenApi_1.1.2.61_IoT">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/CommonLib/libs/SenterOpenApi_1.1.2.61_IoT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

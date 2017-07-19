@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!-- 顺序不可以变，这里变化，在InputReportActivity中也要变 -->
+    <string-array name="case_item">
+        <item>身高</item>
+        <item>体重</item>
+        <item>血氧</item>
+        <item>脉率</item>
+        <item>血压-舒张压（低压）</item>
+        <item>血压-收缩压（高压）</item>
+        <item>血压-平均压</item>
+        <item>血糖</item>
+        <item>心率</item>
+    </string-array>
+
+</resources>

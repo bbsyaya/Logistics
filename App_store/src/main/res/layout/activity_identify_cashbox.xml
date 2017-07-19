@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/pic_header_02"
+        android:gravity="center_vertical" >
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/back"
+            android:onClick="back" />
+
+        <TextView
+            android:id="@+id/header_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/btn_back"
+            android:text="@string/module4_Identify"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+    </RelativeLayout>
+	
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnScan"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" 
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="钞箱编号："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/lblCashboxCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="钞箱编号："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="钞箱类型："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/lblCashboxType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="钞箱编号："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="财产所有："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/lblHolder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="钞箱编号："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+            </LinearLayout>
+            
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="所属银行："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/lblBankName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="钞箱编号："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="所属网点："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/lblSiteName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="钞箱编号："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="所在仓库："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/lblStoreName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="钞箱编号："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="所在区域："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/lblAreaName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="钞箱编号："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="所在货架："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/lblShelfName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="钞箱编号："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="所在格子："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/lblCellName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="钞箱编号："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="供货商名："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/lblVendor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="钞箱编号："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="送箱时间："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/lblBackTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="钞箱编号："
+                    android:textColor="#000000"
+                    android:textSize="16dp" >
+                </TextView>
+            </LinearLayout>
+            
+        </LinearLayout>
+    </ScrollView>
+	
+    <Button 
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/btnScan"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/btn_style_green"
+        android:textSize="14dp"
+        android:text="@string/btn_read"
+        android:onClick="btnScan_onClick"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+     />
+        
+    </RelativeLayout>
+
+</LinearLayout>

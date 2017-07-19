@@ -1,0 +1,256 @@
+package com.jintoufs.logstics.fragment;
+
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.jintoufs.logstics.AppContext;
+import com.jintoufs.logstics.R;
+import com.jintoufs.logstics.activites.SettingActivity;
+import com.jintoufs.logstics.activites.UpdateFingerActivity;
+import com.jintoufs.logstics.activites.UpdatePwdActivity;
+import com.jintoufs.logstics.api.ApiHttpClient;
+import com.jintoufs.logstics.api.remote.Api;
+import com.jintoufs.logstics.base.BaseFragment;
+import com.jintoufs.logstics.db.CashBoxDao;
+import com.jintoufs.logstics.db.ReplaceCashBoxDao;
+import com.jintoufs.logstics.db.EquipmentDao;
+import com.jintoufs.logstics.db.TerminalDao;
+import com.jintoufs.logstics.entity.CarAndUserInfo;
+import com.jintoufs.logstics.entity.Constants;
+import com.jintoufs.logstics.entity.User;
+import com.jintoufs.logstics.utils.AjaxMsg;
+import com.jintoufs.logstics.utils.FileUtil;
+import com.jintoufs.logstics.utils.TDevice;
+import com.jintoufs.logstics.utils.UpdateManager;
+import com.jintoufs.logstics.widget.AvatarView;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
+
+import java.util.List;
+
+public class Tab3Fragment  extends BaseFragment {
+	private AvatarView mIvAvatarView;
+	private TextView userNameTv;
+	private TextView nickNameTv;
+	private TextView mSettingVersionTv;
+	private RelativeLayout mLay_checkUpdate;
+	private RelativeLayout mLay_UpdatePwd;
+	private RelativeLayout mLay_UpdateFinger;
+	private RelativeLayout mLay_Setting;
+	private RelativeLayout mLay_Clear;
+	private Button mExitBtn;
+	private User user;
+	AppContext appContext;
+	private TextView licenseTv;
+	private TextView partnerTv;
+	private CashBoxDao cashBoxDao;
+	private TerminalDao terminalDao;
+	private EquipmentDao equipmentDao;
+	private ReplaceCashBoxDao replaceCashBoxDao;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		appContext = (AppContext) getActivity().getApplicationContext();
+		cashBoxDao = new CashBoxDao(getActivity());
+		terminalDao = new TerminalDao(getActivity());
+		equipmentDao = new EquipmentDao(getActivity());
+		replaceCashBoxDao = new ReplaceCashBoxDao(getActivity());
+	}
+
+	@SuppressLint("NewApi")
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		LinearLayout view1 = (LinearLayout) inflater.inflate(R.layout.fragment_tab3, container, false);
+		mIvAvatarView = (AvatarView) view1.findViewById(R.id.iv_avatar);
+		userNameTv = (TextView) view1.findViewById(R.id.tabUserName);
+		nickNameTv = (TextView) view1.findViewById(R.id.tabNickName);
+		licenseTv = (TextView) view1.findViewById(R.id.tabLicense);
+		partnerTv = (TextView) view1.findViewById(R.id.tabPartner);
+		mSettingVersionTv = (TextView) view1.findViewById(R.id.setting_version);
+		mLay_checkUpdate = (RelativeLayout) view1.findViewById(R.id.lay_checkUpdate);
+		mLay_UpdatePwd = (RelativeLayout) view1.findViewById(R.id.lay_updatePwd);
+		mLay_UpdateFinger = (RelativeLayout) view1.findViewById(R.id.lay_finger);
+		mLay_Setting = (RelativeLayout) view1.findViewById(R.id.lay_setting);
+		mLay_Clear = (RelativeLayout) view1.findViewById(R.id.lay_clear);
+		mExitBtn = (Button) view1.findViewById(R.id.btn_exit);
+		String version = TDevice.getVersionName();
+		mSettingVersionTv.setText(version);
+		
+		getUserInfo();
+		return view1;
+	}
+
+	public void getUserInfo() {
+		user = appContext.getLoginUser();
+		if (user != null) {
+			userNameTv.setText(user.getUserName());
+			nickNameTv.setText(user.getRealName());
+//			mIvAvatarView.setAvatarUrl(Constants.ftpUrl + user.getUserPhoto());
+			mIvAvatarView.setAvatarUrl(ApiHttpClient.getNetworkUrl() + user.getUserPhoto());
+			Api.getCarAndUserInfo(user.getKeyStr(),mHandler);
+		}
+	}
+	
+	private final AsyncHttpResponseHandler mHandler = new JsonHttpResponseHandler() {
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, JSONObject response) {
+			try {
+				Gson gson = new Gson();
+				AjaxMsg ajaxMsg = gson.fromJson(response.toString(), AjaxMsg.class);
+				if (ajaxMsg.getCode().equals(AjaxMsg.SUCCESS)) {					
+					List<CarAndUserInfo> carAndUserInfos = gson.fromJson(gson.toJson(ajaxMsg.getDatas()), new TypeToken<List<CarAndUserInfo>>() {
+					}.getType());
+					if (carAndUserInfos.size() > 0) {
+						CarAndUserInfo carAndUserInfo = carAndUserInfos.get(0);
+
+						String license = carAndUserInfo.getLicense();
+						String keyName = carAndUserInfo.getKeyName();
+						String passName = carAndUserInfo.getPassName();
+						licenseTv.setText(license);
+						String partnerName = "";
+						if (user.getRealName().equals(keyName)) {
+							partnerName = passName;
+						} else {
+							partnerName = keyName;
+						}
+						partnerTv.setText(partnerName);
+						appContext.setPartnerName(partnerName);
+					}
+					hideWaitDialog();
+				} else {
+					AppContext.showToast(getResources().getString(R.string.tip_loading_error) + "\n原因:" + arg0 + ":" + ajaxMsg.getMessage());
+					AppContext.getInstance().cleanLoginInfo();
+					hideWaitDialog();
+				}
+			} catch (Exception e) {
+				hideWaitDialog();
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public void onFailure(int arg0, Header[] headers, String arg3, Throwable arg4) {
+			hideWaitDialog();
+			arg4.printStackTrace();
+			AppContext.showToast(getResources().getString(R.string.tip_login_error_for_network) + "\n原因:" + arg0 + ":" + arg4.getMessage());
+		}
+
+		@Override
+		public void onFailure(int arg0, Header[] headers, Throwable arg4, JSONObject arg3) {
+			hideWaitDialog();
+			arg4.printStackTrace();
+			AppContext.showToast(getResources().getString(R.string.tip_login_error_for_network) + "\n原因:" + arg0 + ":" + arg4.getMessage());
+		}
+	};
+
+	public void updatePwd() {
+		Intent intent = new Intent(getActivity(), UpdatePwdActivity.class);
+		startActivity(intent);
+	}
+
+	public void updateFinger() {
+		Intent intent = new Intent(getActivity(), UpdateFingerActivity.class);
+		startActivity(intent);
+	}
+
+	public void checkUpdate() {
+		Handler handler = new Handler();
+		handler.postDelayed(new Runnable() {
+
+			@Override
+			public void run() {
+				new UpdateManager(Tab3Fragment.this.getActivity(), false).checkUpdate();
+			}
+		}, 0);
+	}
+
+	@Override
+	public void onViewCreated(View view,  Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		
+		mLay_checkUpdate.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				checkUpdate();
+			}
+		});
+		mLay_UpdatePwd.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				updatePwd();
+			}
+		});
+		mLay_UpdateFinger.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				updateFinger();
+			}
+		});
+		mLay_Setting.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(getActivity(), SettingActivity.class);
+				startActivity(intent);
+			}
+		});
+		mLay_Clear.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				final AlertDialog confirmDialog=new AlertDialog.Builder(getActivity())
+						.setIcon(android.R.drawable.btn_star)
+						.setTitle("确认清除本地数据")
+						.setMessage("该操作会删除自助设备本地所有数据")
+						.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialogInterface, int i) {
+								cashBoxDao.deleteAll();//清空cashbox表中数据
+								terminalDao.deleteAll();//清空terminal表中数据
+								equipmentDao.deleteAll();//清空equipment表中数据
+								replaceCashBoxDao.deleteAll();//清空changebox表中数据
+								FileUtil.DeleteFolder(Constants.STORE_URL);
+								dialogInterface.dismiss();
+								AppContext.showToastShort("清除本地数据成功");
+							}
+						})
+						.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialogInterface, int i) {
+								dialogInterface.dismiss();
+							}
+						}).create();
+				confirmDialog.show();
+			}
+		});
+		mExitBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				AppContext.getInstance().Logout();
+				AppContext.getInstance().exit();
+			}
+		});
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+	}
+
+}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="fill_parent"
+                android:layout_height="160dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="2dp"
+                android:background="@drawable/corner_shape"
+                android:gravity="center_vertical"
+                android:padding="1dp">
+
+    <com.jintoufs.widget.AvatarView
+        android:id="@+id/user_face"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="23dp"
+        android:contentDescription="@null"
+        android:src="@drawable/widget_dface"
+        app:border_color="@color/white"
+        app:border_width="2dip"/>
+
+    <RelativeLayout
+        android:id="@+id/text_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/user_face"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:text="Rose"
+            android:textColor="#000"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView2"
+            android:layout_marginLeft="14dp"
+            android:text="No.315453"
+            android:textColor="#000"
+            android:textSize="16sp"/>
+    </RelativeLayout>
+
+</RelativeLayout>

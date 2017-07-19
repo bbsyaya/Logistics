@@ -1,0 +1,208 @@
+package com.jintoufs.logstics.activites;
+
+import org.apache.http.Header;
+import org.apache.http.client.CookieStore;
+import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.protocol.HttpContext;
+import org.json.JSONObject;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+
+import com.google.gson.Gson;
+import com.jintoufs.logstics.AppConfig;
+import com.jintoufs.logstics.AppContext;
+import com.jintoufs.logstics.R;
+import com.jintoufs.logstics.api.ApiHttpClient;
+import com.jintoufs.logstics.api.remote.Api;
+import com.jintoufs.logstics.base.BaseActivity;
+import com.jintoufs.logstics.entity.Constants;
+import com.jintoufs.logstics.entity.User;
+import com.jintoufs.logstics.utils.AjaxMsg;
+import com.jintoufs.logstics.utils.Exit;
+import com.jintoufs.logstics.utils.StringUtils;
+import com.jintoufs.logstics.utils.TDevice;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+public class LoginActivity extends BaseActivity {
+	private EditText mEtUserName;
+	private EditText mEtPassword;
+
+	private String mUserName;
+	private String mPassword;
+	private AppContext appContext;
+	private EditText ipText;
+	private View ipView;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_login);
+		mEtUserName = (EditText) findViewById(R.id.login_user_edit);
+		mEtPassword = (EditText) findViewById(R.id.login_passwd_edit);
+		appContext = (AppContext) getApplication();
+	}
+
+	public void login(View v) {
+		handleLogin();
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) { // ��ȡ
+			Exit.exitBy2Click(this);
+		}
+		return false;
+	}
+
+	private void handleLogin() {
+
+		if (!prepareForLogin()) {
+			return;
+		}
+
+		mUserName = mEtUserName.getText().toString();
+		mPassword = mEtPassword.getText().toString();
+
+		showWaitDialog(R.string.progress_login);
+		Api.login(mUserName, mPassword, mHandler);
+	}
+
+	private final AsyncHttpResponseHandler mHandler = new JsonHttpResponseHandler() {
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, JSONObject response) {
+			try {
+				AsyncHttpClient client = ApiHttpClient.getHttpClient();
+				HttpContext httpContext = client.getHttpContext();
+				CookieStore cookies = (CookieStore) httpContext.getAttribute(ClientContext.COOKIE_STORE);
+				if (cookies != null) {
+					String tmpcookies = "";
+					for (Cookie c : cookies.getCookies()) {
+						tmpcookies += (c.getName() + "=" + c.getValue()) + ";";
+					}
+					AppContext.getInstance().setProperty(AppConfig.CONF_COOKIE, tmpcookies);
+					ApiHttpClient.setCookie(ApiHttpClient.getCookie(AppContext.getInstance()));
+				}
+				Gson gson = new Gson();
+				AjaxMsg ajaxMsg = gson.fromJson(response.toString(), AjaxMsg.class);
+				hideWaitDialog();
+				if (ajaxMsg.getCode().equals(AjaxMsg.SUCCESS)) {
+					User user = gson.fromJson(gson.toJson(ajaxMsg.getDatas()), User.class);
+					if (user != null && user.getId() > 0) {
+						// 保存登录信息
+						AppContext.getInstance().saveUserInfo(user);
+						Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+						startActivity(intent);
+						LoginActivity.this.finish();
+					} else {
+						AppContext.showToast(getResources().getString(R.string.tip_loading_error) + "\n原因:" + arg0 + ":" + ajaxMsg.getMessage());
+						AppContext.getInstance().cleanLoginInfo();
+
+					}
+				} else {
+					AppContext.getInstance().cleanLoginInfo();
+					AppContext.showToast(getResources().getString(R.string.tip_login_error_no_user));
+				}
+			} catch (Exception e) {
+				hideWaitDialog();
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public void onFailure(int arg0, Header[] headers, String arg3, Throwable arg4) {
+			hideWaitDialog();
+			arg4.printStackTrace();
+			AppContext.showToast(getResources().getString(R.string.tip_login_error_for_network) + "\n原因:" + arg0 + ":" + arg4.getMessage());
+		}
+
+		@Override
+		public void onFailure(int arg0, Header[] headers, Throwable arg4, JSONObject arg3) {
+			arg4.printStackTrace();
+			hideWaitDialog();
+			AppContext.showToast(getResources().getString(R.string.tip_login_error_for_network) + "\n原因:" + arg0 + ":" + arg4.getMessage());
+		}
+	};
+
+	private boolean prepareForLogin() {
+		if (!TDevice.hasInternet()) {
+			AppContext.showToastShort(R.string.tip_no_internet);
+			return false;
+		}
+		String uName = mEtUserName.getText().toString();
+		if (StringUtils.isEmpty(uName)) {
+			AppContext.showToastShort(R.string.tip_please_input_username);
+			mEtUserName.requestFocus();
+			return false;
+		}
+		String pwd = mEtPassword.getText().toString();
+		if (StringUtils.isEmpty(pwd)) {
+			AppContext.showToastShort(R.string.tip_please_input_password);
+			mEtPassword.requestFocus();
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		/*
+		 * 
+		 * add()方法的四个参数，依次是：
+		 * 
+		 * 1、组别，如果不分组的话就写Menu.NONE,
+		 * 
+		 * 2、Id，这个很重要，Android根据这个Id来确定不同的菜单
+		 * 
+		 * 3、顺序，那个菜单现在在前面由这个参数的大小决定
+		 * 
+		 * 4、文本，菜单的显示文本
+		 */
+		menu.add(Menu.NONE, Menu.FIRST + 1, 1, "配置大库wifi名称").setIcon(android.R.drawable.ic_menu_set_as);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case Menu.FIRST + 1:
+			buildTextDialog("请设置大库wifi名称");
+			break;
+		}
+
+		return false;
+
+	}
+
+	// 构建通用的文本输入对话框
+	public void buildTextDialog(String title) {
+		// 取得自定义View
+		LayoutInflater layoutInflater = LayoutInflater.from(this);
+		ipView = layoutInflater.inflate(R.layout.wifi_setting, null);
+		ipText = (EditText) ipView.findViewById(R.id.ip_tv);
+		String wifi=AppContext.get(Constants.STORE_WIFI,"");
+		ipText.setText(wifi);
+		AlertDialog alerdialog = new AlertDialog.Builder(this).setTitle(title).setView(ipView).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				AppContext.set(Constants.STORE_WIFI, ipText.getText().toString());
+			}
+		}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+			}
+		}).create();
+		alerdialog.setCancelable(false);
+		alerdialog.show();// EditText 就可以显示在对话框中了
+	}
+}

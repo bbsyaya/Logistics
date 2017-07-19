@@ -1,0 +1,101 @@
+package com.jintoufs.logstics.db;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+/**
+ * 数据库
+ * Created by Administrator on 2017/6/9 0009.
+ */
+
+public class DBHelper extends SQLiteOpenHelper {
+    private static final String DATABASE_NAME = "hongtai-logistics.db";
+    private static final int DATABASE_VERSION = 1882;
+
+    public DBHelper(Context context) {
+        // CursorFactory设置为null,使用默认值
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    // 数据库第一次被创建时onCreate会被调用
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        String sql= "CREATE TABLE cashbox ("
+                + " id INTEGER DEFAULT NULL,"
+                + " DETAIL_ID VARCHAR(50) DEFAULT NULL ,"
+                + " CASH_BOX_CODE VARCHAR(30) DEFAULT NULL ,"
+                + " RFID VARCHAR(30) DEFAULT NULL ,"
+                + " CASH_BOX_ID VARCHAR(30) DEFAULT NULL ,"
+                + " TYPE VARCHAR(1) DEFAULT NULL ,"
+                + " USE_TYPE VARCHAR(1) DEFAULT NULL ,"
+                + " FOUND_STATUS VARCHAR(1) DEFAULT 0 )";
+        db.execSQL(sql);
+        String sql_equipment= "CREATE TABLE equipment ("
+                + " id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + " DETAIL_ID VARCHAR(50) DEFAULT NULL ,"
+                + " withdrawStatus VARCHAR(1) DEFAULT 0 ,"
+                + " swallowedCard VARCHAR(1) DEFAULT 0 ,"
+                + " checkMachine VARCHAR(1) DEFAULT 0 ,"
+                + " replaceCashBox VARCHAR(1) DEFAULT 0 ,"
+                + " closeDoor VARCHAR(1) DEFAULT 0 ,"
+                + " addCash VARCHAR(1) DEFAULT 0 ,"
+                + " checkMaterial VARCHAR(1) DEFAULT 0 ,"
+                + " safetyProtection VARCHAR(1) DEFAULT 0 ,"
+                + " technicalProtection VARCHAR(1) DEFAULT 0 ,"
+                + " sanitation VARCHAR(1) DEFAULT 0 ,"
+                + " inspection VARCHAR(1) DEFAULT 0 ,"
+                + " photoStatus VARCHAR(1) DEFAULT 0 ,"
+                + " createTime VARCHAR(50) DEFAULT NULL ,"
+                + " endTime VARCHAR(50) DEFAULT NULL,"
+                + " withdrawImg VARCHAR(100) DEFAULT NULL ,"
+                + " swallowedCardImg VARCHAR(100) DEFAULT NULL ,"
+                + " machineImg VARCHAR(100) DEFAULT NULL ,"
+                + " closeDoorImg VARCHAR(100) DEFAULT NULL ,"
+                + " safetyProtectionImg VARCHAR(100) DEFAULT NULL ,"
+                + " technicalProtectionImg VARCHAR(100) DEFAULT NULL ,"
+                + " sanitationImg VARCHAR(100) DEFAULT NULL ,"
+                + " inspectionImg VARCHAR(100) DEFAULT NULL ,"
+                + " photo VARCHAR(100) DEFAULT NULL ,"
+                + " finished_status VARCHAR(1) DEFAULT 0)";
+        db.execSQL(sql_equipment);
+        String sql_terminal= "CREATE TABLE terminal ("
+                + " id INTEGER DEFAULT NULL,"
+                + " NAME VARCHAR(30) DEFAULT NULL ,"
+                + " CODE VARCHAR(30) DEFAULT NULL ,"
+                + " ADDRESS VARCHAR(100) DEFAULT NULL ,"
+                + " VERIFY_CODE VARCHAR(30) DEFAULT NULL ,"
+                + " RFID VARCHAR(50) DEFAULT NULL ,"
+                + " DETAIL_ID VARCHAR(50) DEFAULT NULL ,"
+                + " LOCK_TYPE VARCHAR(1) DEFAULT NULL ,"
+                + " SITE_NAME VARCHAR(50) DEFAULT NULL ,"
+                + " SITE_SHORT VARCHAR(50) DEFAULT NULL ,"
+                + " STATUS VARCHAR(1) DEFAULT 0 ,"
+                + " STATE VARCHAR(1) DEFAULT NULL ,"
+                + " TYPE VARCHAR(1) DEFAULT NULL ,"
+                + " DELIVER_TYPE VARCHAR(1) DEFAULT NULL ,"
+                + " LONGITUDE VARCHAR(30) DEFAULT NULL ,"
+                + " LATITUDE VARCHAR(30) DEFAULT NULL ,"
+                + " ID_CODE VARCHAR(30) DEFAULT NULL )";
+        db.execSQL(sql_terminal);
+        String sql_changeBox= "CREATE TABLE changebox ("
+                + " id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + " DETAIL_ID VARCHAR(50) DEFAULT NULL ,"
+                + " ID_OUT_ITEM INTEGER DEFAULT NULL ,"
+                + " ID_IN_ITEM INTEGER DEFAULT NULL )";
+        db.execSQL(sql_changeBox);
+        String sql_user= "CREATE TABLE user ("
+                + " id INTEGER DEFAULT NULL,"
+                + " USER_NAME VARCHAR(50) DEFAULT NULL ,"
+                + " KEYSTR VARCHAR(50) DEFAULT NULL ,"
+                + " REAL_NAME VARCHAR(50) DEFAULT NULL ,"
+                + " PASSWORD varchar(50) DEFAULT NULL ,"
+                + " FINGERPRINT text DEFAULT NULL )";
+        db.execSQL(sql_user);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+
+    }
+}

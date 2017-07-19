@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="#f7f7f7"
+                android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/pic_header_02"
+        android:gravity="center_vertical" >
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/back"
+            android:onClick="back" />
+
+        <TextView
+            android:id="@+id/header_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="6dp"
+            android:layout_toRightOf="@id/btn_back"
+            android:text="设置功率"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/lblBatchReadPower"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_below="@id/header"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="10dp"
+        android:hint="批量读取功率："
+        android:maxLength="2"
+        android:padding="13dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/txtBatchReadPower"
+        android:layout_width="200dp"
+        android:layout_height="45dp"
+        android:layout_below="@id/header"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="1dp"
+        android:layout_toRightOf="@id/lblBatchReadPower"
+        android:background="@drawable/login_editbox"
+        android:hint="批量功率"
+        android:inputType="number"
+        android:maxLength="2"
+        android:padding="13dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/lblSingleReadPower"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_below="@id/lblBatchReadPower"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="10dp"
+        android:hint="单独读取功率："
+        android:maxLength="2"
+        android:padding="13dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/txtSingleReadPower"
+        android:layout_width="200dp"
+        android:layout_height="45dp"
+        android:layout_below="@id/txtBatchReadPower"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/lblSingleReadPower"
+        android:background="@drawable/login_editbox"
+        android:hint="单独读取功率"
+        android:inputType="number"
+        android:maxLength="2"
+        android:padding="13dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="#24C989"
+        android:gravity="bottom"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_write"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:background="@drawable/btn_style_green"
+            android:gravity="center"
+            android:onClick="set"
+            android:text="@string/setting"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</RelativeLayout>

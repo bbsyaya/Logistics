@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="regoPrintLibV3.0.02x">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/CommonLib/libs/regoPrintLibV3.0.02x.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

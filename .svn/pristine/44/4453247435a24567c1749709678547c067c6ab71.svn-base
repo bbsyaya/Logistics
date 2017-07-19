@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/pic_header_02"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/back"
+            android:onClick="back"/>
+
+        <TextView
+            android:id="@+id/header_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/btn_back"
+            android:text="@string/module1"
+            android:textColor="#ffffff"
+            android:textSize="20sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/main_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <com.jintoufs.widget.AvatarView
+            android:id="@+id/user_key"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_marginLeft="23dp"
+            android:contentDescription="@null"
+            android:src="@drawable/widget_dface"
+            app:border_color="@color/white"
+            app:border_width="2dip"/>
+
+        <com.jintoufs.widget.AvatarView
+            android:id="@+id/user_password"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_marginLeft="23dp"
+            android:layout_toRightOf="@id/user_key"
+            android:contentDescription="@null"
+            android:src="@drawable/widget_dface"
+            app:border_color="@color/white"
+            app:border_width="2dip"/>
+
+        <TextView
+            android:id="@+id/user_key_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/user_key"
+            android:layout_below="@+id/user_key"
+            android:layout_marginLeft="35dp"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/user_password_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/user_key_name"
+            android:layout_alignLeft="@+id/user_password"
+            android:layout_below="@+id/user_password"
+            android:layout_marginLeft="36dp"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/lay_site_users"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+    </LinearLayout>
+
+</LinearLayout>
